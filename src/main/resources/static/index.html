@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satellite Mission Tracker</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<header class="app-header">
+    <div class="container-fluid d-flex align-items-center">
+        <i class="fa-solid fa-satellite me-2"></i>
+        <h1 class="h5 mb-0 fw-bold">Satellite Mission Tracker</h1>
+    </div>
+</header>
+
+<main class="container-fluid py-4">
+
+    <!-- Stat cards -->
+    <div class="row g-3 justify-content-center mb-4">
+        <div class="col-6 col-md-3">
+            <div class="stat-card">
+                <div class="stat-number" id="statTotal">0</div>
+                <div class="stat-label">Total Missions</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card">
+                <div class="stat-number" id="statActive">0</div>
+                <div class="stat-label">Active Orbiting</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-card">
+                <div class="stat-number" id="statPlanned">0</div>
+                <div class="stat-label">Planned Missions</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <!-- Add / Edit Mission form -->
+        <div class="col-lg-3">
+            <div class="panel">
+                <div class="panel-header" id="formHeader">Add New Mission</div>
+                <div class="panel-body">
+                    <form id="missionForm" novalidate>
+                        <input type="hidden" id="missionId">
+
+                        <div class="mb-3">
+                            <label class="form-label" for="missionName">Mission Name</label>
+                            <input type="text" class="form-control" id="missionName" required>
+                            <div class="invalid-feedback">Mission name is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="agency">Agency</label>
+                            <input type="text" class="form-control" id="agency" required>
+                            <div class="invalid-feedback">Agency is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="launchDate">Launch Date</label>
+                            <input type="date" class="form-control" id="launchDate" required>
+                            <div class="invalid-feedback">Launch date is required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="orbit">Orbit</label>
+                            <select class="form-select" id="orbit" required>
+                                <option value="LEO">LEO</option>
+                                <option value="GEO">GEO</option>
+                                <option value="MEO">MEO</option>
+                                <option value="DEEP_SPACE">Deep Space</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="status">Status</label>
+                            <select class="form-select" id="status" required>
+                                <option value="ACTIVE">Active</option>
+                                <option value="PLANNED">Planned</option>
+                                <option value="DECOMMISSIONED">Decommissioned</option>
+                            </select>
+                        </div>
+
+                        <div id="formAlert" class="alert alert-danger py-2 d-none" role="alert"></div>
+
+                        <button type="submit" class="btn btn-primary w-100" id="saveBtn">Save Mission</button>
+                        <button type="button" class="btn btn-outline-secondary w-100 mt-2 d-none" id="cancelBtn">Cancel Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Missions list -->
+        <div class="col-lg-9">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                        <h2 class="h5 mb-0 fw-bold">Missions List</h2>
+                        <div class="input-group" style="max-width: 320px;">
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search mission...">
+                            <button class="btn btn-primary" id="searchBtn" type="button">
+                                <i class="fa-solid fa-magnifying-glass me-1"></i>Search
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle mission-table">
+                            <thead>
+                                <tr>
+                                    <th>Mission Name</th>
+                                    <th>Agency</th>
+                                    <th>Launch Date</th>
+                                    <th>Orbit</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="missionsTableBody">
+                                <!-- rows injected by js/app.js -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="emptyState" class="text-center text-muted py-4 d-none">
+                        No missions found.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
